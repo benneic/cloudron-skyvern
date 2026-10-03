@@ -13,7 +13,7 @@
                 "changelog": "* Bump [Skyvern 1.0.55](https://github.com/Skyvern-AI/skyvern/releases/tag/v1.0.55).\n",
                 "postInstallMessage": "## First steps\n\n1. Open the app URL and sign in with your Cloudron account. That login is Cloudron proxyauth, not a Skyvern user.\n2. Set an LLM provider under the app's **Environment** before you run tasks. Example: `ENABLE_OPENAI=true`, `OPENAI_API_KEY`, and `LLM_KEY`. Restart the app after saving.\n3. Copy the API key from `/app/data/.skyvern/credentials.toml` (the `cred` value) or from the Skyvern UI. MCP, n8n, and ActivePieces use the header `x-api-key`.\n\n## Connect other tools\n\n- Integrations: https://github.com/benneic/cloudron-skyvern/blob/main/docs/INTEGRATIONS.md\n- Credential vaults (Bitwarden, 1Password, Azure Key Vault, custom webhook): https://github.com/benneic/cloudron-skyvern/blob/main/docs/CREDENTIALS.md\n\n## Resources\n\nBrowser automations need memory. This package asks for 4 GiB. Raise the app memory limit if Chromium is killed.\n\nThe API, `/mcp`, and `/artifacts` are not behind the Cloudron login page so automation can call them with the API key. Do not publish the API key.\n",
                 "icon": "file://icon.png",
-                "iconUrl": "https://github.com/Skyvern-AI.png",
+                "iconUrl": "https://raw.githubusercontent.com/benneic/cloudron-skyvern/main/icon.png",
                 "website": "https://www.skyvern.com/",
                 "documentationUrl": "https://github.com/benneic/cloudron-skyvern/blob/main/README.md",
                 "contactEmail": "change-me@example.com",

@@ -9,7 +9,7 @@
   "changelog": "file://CHANGELOG",
   "postInstallMessage": "file://POSTINSTALL.md",
   "icon": "file://icon.png",
-  "iconUrl": "https://github.com/Skyvern-AI.png",
+  "iconUrl": "https://raw.githubusercontent.com/benneic/cloudron-skyvern/main/icon.png",
   "website": "https://www.skyvern.com/",
   "documentationUrl": "https://github.com/benneic/cloudron-skyvern/blob/main/README.md",
   "contactEmail": "change-me@example.com",
