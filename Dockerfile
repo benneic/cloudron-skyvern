@@ -41,8 +41,24 @@ ENV PATH="/opt/skyvern-usr/bin:/opt/skyvern-ui-usr/bin:${PATH}" \
     PYTHONPATH="/opt/skyvern" \
     PLAYWRIGHT_BROWSERS_PATH="/opt/ms-playwright"
 
-# Chromium system libraries are not part of cloudron/base. Browsers are downloaded
-# into a path outside the read-only root so runtime can see them.
+# Upstream console scripts use #!/usr/local/bin/python3. The interpreter now lives
+# under /opt/skyvern-usr, so recreate those shebang paths without replacing
+# cloudron/base's own /usr/local tools when they already exist.
+RUN set -eux; \
+    mkdir -p /usr/local/bin; \
+    for py in python3.11 python3 python; do \
+      if [ -x "/opt/skyvern-usr/bin/${py}" ] && [ ! -e "/usr/local/bin/${py}" ]; then \
+        ln -s "/opt/skyvern-usr/bin/${py}" "/usr/local/bin/${py}"; \
+      fi; \
+    done; \
+    if [ ! -e /usr/local/bin/python3 ] && [ -x /opt/skyvern-usr/bin/python3.11 ]; then \
+      ln -s /opt/skyvern-usr/bin/python3.11 /usr/local/bin/python3; \
+    fi; \
+    if [ ! -e /usr/local/bin/python ] && [ -e /usr/local/bin/python3 ]; then \
+      ln -s python3 /usr/local/bin/python; \
+    fi
+
+# Chromium system libraries are not part of cloudron/base.
 RUN playwright install-deps chromium \
     && playwright install chromium \
     && chmod -R a+rX /opt/ms-playwright
