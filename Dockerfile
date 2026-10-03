@@ -65,7 +65,7 @@ RUN playwright install-deps chromium \
 
 # Persist data through symlinks. /app/data is the only durable writable tree and is
 # empty at runtime, so the links are created at build time and the targets at start.
-RUN mkdir -p /data \
+RUN mkdir -p /data /app \
     && ln -sfn /app/data/artifacts /data/artifacts \
     && ln -sfn /app/data/videos /data/videos \
     && ln -sfn /app/data/har /data/har \
