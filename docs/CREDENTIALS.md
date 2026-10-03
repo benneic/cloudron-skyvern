@@ -6,7 +6,7 @@ Secrets stay in Cloudron's environment store or in your vault. They are not part
 
 ## Skyvern vault
 
-No extra configuration. Create password, card, or secret credentials in the UI or with `POST /api/v1/credentials`. They are stored in the PostgreSQL addon.
+No extra configuration. Create password, card, or secret credentials in the UI or with `POST /api/v1/credentials`. The credential record is in the PostgreSQL addon. The encrypted secret is stored under `/app/data/.skyvern/credential_vault`.
 
 ## Bitwarden or Vaultwarden
 
