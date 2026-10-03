@@ -98,8 +98,9 @@ COPY supervisor/supervisord.conf /app/code/supervisord.conf
 COPY start.sh /app/code/start.sh
 COPY start-ui.sh /app/code/start-ui.sh
 COPY start-backend.sh /app/code/start-backend.sh
+COPY start-mcp.py /app/code/start-mcp.py
 COPY bitwarden-serve.sh /app/code/bitwarden-serve.sh
-RUN chmod +x /app/code/start.sh /app/code/start-ui.sh /app/code/start-backend.sh /app/code/bitwarden-serve.sh
+RUN chmod +x /app/code/start.sh /app/code/start-ui.sh /app/code/start-backend.sh /app/code/start-mcp.py /app/code/bitwarden-serve.sh
 
 EXPOSE 8080
 
