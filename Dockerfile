@@ -74,14 +74,22 @@ RUN mkdir -p /data /app \
 
 # Public nginx owns 8080. The UI server hardcodes 8080; move it to 8081.
 # Drop the desktop "open" call, which fails in a container.
+# The UI entrypoint rebuilds dist on every start. /opt is readonly at runtime,
+# so the injected bundle is written to tmpfs and served through a symlink.
+# Replace the template path first so it is not rewritten by the dist rule.
 RUN sed -i \
-        -e 's|/app/dist|/opt/skyvern-ui/dist|g' \
+        -e 's|/app/dist.template|/opt/skyvern-ui/dist.template|g' \
+        -e 's|/app/dist|/run/skyvern/ui-dist|g' \
         -e 's|/app/.skyvern|/app/data/.skyvern|g' \
         /opt/skyvern-ui/entrypoint-skyvernui.sh \
     && sed -i \
         -e 's/8080/8081/g' \
         -e '/await open(url)/d' \
-        /opt/skyvern-ui/localServer.js
+        /opt/skyvern-ui/localServer.js \
+    && rm -rf /opt/skyvern-ui/dist \
+    && ln -sfn /run/skyvern/ui-dist /opt/skyvern-ui/dist \
+    && rm -rf /opt/skyvern/temp \
+    && ln -sfn /app/data/temp /opt/skyvern/temp
 
 RUN mkdir -p /app/code /run/nginx /run/skyvern
 
@@ -89,8 +97,9 @@ COPY nginx/nginx.conf /app/code/nginx.conf
 COPY supervisor/supervisord.conf /app/code/supervisord.conf
 COPY start.sh /app/code/start.sh
 COPY start-ui.sh /app/code/start-ui.sh
+COPY start-backend.sh /app/code/start-backend.sh
 COPY bitwarden-serve.sh /app/code/bitwarden-serve.sh
-RUN chmod +x /app/code/start.sh /app/code/start-ui.sh /app/code/bitwarden-serve.sh
+RUN chmod +x /app/code/start.sh /app/code/start-ui.sh /app/code/start-backend.sh /app/code/bitwarden-serve.sh
 
 EXPOSE 8080
 

@@ -4,7 +4,12 @@ name: Upstream release watch
 on:
   schedule:
     - cron: "0 6 * * 1" # Monday 06:00 UTC
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      rebuild:
+        description: Rebuild and push the image for the current version
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -65,6 +70,16 @@ jobs:
           if [ "$CUR_D" != "$CUR_M" ]; then
             echo "Dockerfile vs CloudronManifest.json: $CUR_D != $CUR_M" >&2
             exit 1
+          fi
+
+          if [ "${{ inputs.rebuild }}" = "true" ]; then
+            if [ "$UP" != "$CUR_D" ]; then
+              echo "Refusing rebuild: upstream ${UP} != main ${CUR_D}" >&2
+              exit 1
+            fi
+            echo "action=release" >> "$GITHUB_OUTPUT"
+            echo "Forced rebuild of ${UP}" >&2
+            exit 0
           fi
 
           if jq -e ".versions[\"${UP}\"]" CloudronVersions.json >/dev/null; then

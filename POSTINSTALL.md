@@ -13,4 +13,4 @@
 
 Browser automations need memory. This package asks for 4 GiB. Raise the app memory limit if Chromium is killed.
 
-The API, `/mcp`, and `/artifacts` are not behind the Cloudron login page so automation can call them with the API key. Do not publish the API key.
+Automation calls `/api/v1` and `/api/mcp/` with the API key. Those paths are not behind the Cloudron login page. Do not publish the API key.

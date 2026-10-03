@@ -6,7 +6,7 @@ Secrets stay in Cloudron's environment store or in your vault. They are not part
 
 ## Skyvern vault
 
-No extra configuration. Create password, card, or secret credentials in the UI or with `POST /v1/credentials`. They are stored in the PostgreSQL addon.
+No extra configuration. Create password, card, or secret credentials in the UI or with `POST /api/v1/credentials`. They are stored in the PostgreSQL addon.
 
 ## Bitwarden or Vaultwarden
 
@@ -29,13 +29,13 @@ The cloud flow that shares a collection with Skyvern staff does not apply here. 
 Create a [service account](https://developer.1password.com/docs/service-accounts/get-started/) that can read the vault. Then either:
 
 - set `OP_SERVICE_ACCOUNT_TOKEN` on the Cloudron app, or
-- `POST /v1/credentials/onepassword/create` with `x-api-key` and body `{ "token": "…" }`.
+- `POST /api/v1/credentials/onepassword/create` with `x-api-key` and body `{ "token": "…" }`.
 
 Workflow credential parameters use the 1Password vault id and item id.
 
 ## Azure Key Vault
 
-`POST /v1/credentials/azure_credential/create` with `x-api-key`:
+`POST /api/v1/credentials/azure_credential/create` with `x-api-key`:
 
 ```json
 {
@@ -61,6 +61,6 @@ CUSTOM_CREDENTIAL_API_BASE_URL=https://credentials.example.com/api/v1/credential
 CUSTOM_CREDENTIAL_API_TOKEN=your_api_token
 ```
 
-Or `POST /v1/credentials/custom_credential/create` with `api_base_url` and `api_token`.
+Or `POST /api/v1/credentials/custom_credential/create` with `api_base_url` and `api_token`.
 
 `CREDENTIAL_VAULT_TYPE` must be `custom` for the environment variables to be used. Skyvern's default vault type is not custom.

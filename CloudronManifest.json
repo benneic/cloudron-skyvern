@@ -32,7 +32,7 @@
     "localstorage": {},
     "postgresql": {},
     "proxyAuth": {
-      "path": "!regexp:^/(api|v1|mcp|artifacts)(/|$)"
+      "path": "!/api"
     }
   }
 }

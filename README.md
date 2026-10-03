@@ -26,11 +26,11 @@ The first catalog entry appears after the release workflow has published an imag
 | PostgreSQL addon | Tasks, workflows, built-in credential vault |
 | Local storage | Artifacts, videos, logs, API key under `/app/data` |
 | proxyauth | Cloudron users sign in to the dashboard |
-| nginx :8080 | UI, `/api` and `/v1` (API), `/mcp` (remote MCP), `/artifacts` |
+| nginx :8080 | UI, `/api/v1` (API), `/api/mcp` (remote MCP), `/artifacts` |
 
 Skyvern does not implement the Cloudron OIDC addon. There is one Skyvern organization and one API key. If Cloudron itself uses OIDC or LDAP, that applies only because proxyauth uses Cloudron accounts.
 
-`/api`, `/v1`, `/mcp`, and `/artifacts` are outside the login wall so n8n, ActivePieces, and MCP clients can call them with `x-api-key`.
+`/api` is outside the login wall so n8n, ActivePieces, and MCP clients can call it with `x-api-key`. The dashboard and `/artifacts` stay behind the Cloudron login.
 
 ## After install
 

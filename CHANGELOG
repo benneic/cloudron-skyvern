@@ -1,5 +1,6 @@
 [1.0.55]
 * Bump [Skyvern 1.0.55](https://github.com/Skyvern-AI/skyvern/releases/tag/v1.0.55).
+* Start on Cloudron: keep the UI bundle and Skyvern temp dir on writable storage, and exclude only `/api` from proxyauth so the platform nginx config stays valid.
 
 [1.0.36]
 * Initial Cloudron package for Skyvern 1.0.36: PostgreSQL, local storage, proxyauth, nginx routes for the UI, API, MCP, and artifacts.

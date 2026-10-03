@@ -12,6 +12,7 @@ mkdir -p \
     /app/data/har \
     /app/data/log \
     /app/data/.skyvern \
+    /app/data/temp \
     /app/data/bitwarden \
     /run/nginx/client_body \
     /run/nginx/proxy \
@@ -42,6 +43,9 @@ export VIDEO_PATH=/app/data/videos
 export HAR_PATH=/app/data/har
 export LOG_PATH=/app/data/log
 export SKYVERN_CREDENTIALS_FILE=/app/data/.skyvern/credentials.toml
+# The UI process mints browser sessions against this URL. The public origin
+# is for the browser; the UI server itself must stay on the loopback API.
+export SKYVERN_API_BASE_URL="${SKYVERN_API_BASE_URL:-http://127.0.0.1:8000/api/v1}"
 
 export BROWSER_TYPE="${BROWSER_TYPE:-chromium-headless}"
 export BROWSER_STREAMING_MODE="${BROWSER_STREAMING_MODE:-cdp}"

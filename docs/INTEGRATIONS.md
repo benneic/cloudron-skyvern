@@ -2,13 +2,13 @@
 
 Replace `https://skyvern.example.com` with your Cloudron app origin (`CLOUDRON_APP_ORIGIN`).
 
-The dashboard is behind Cloudron proxyauth. These paths are not:
+The dashboard is behind Cloudron proxyauth. `/api` is not, so automation can call it with `x-api-key`.
 
 | Path | Use |
 |------|-----|
-| `/api/v1` and `/v1` | REST API |
-| `/mcp/` | Remote MCP (streamable HTTP) |
-| `/artifacts/` | Screenshots and recordings |
+| `/api/v1` | REST API |
+| `/api/mcp/` | Remote MCP (streamable HTTP) |
+| `/artifacts/` | Screenshots and recordings, for a browser that is already signed in |
 
 Auth for all of them is the header `x-api-key`. Self-hosted Skyvern does not offer the Skyvern Cloud OAuth login used by `https://api.skyvern.com/mcp/`.
 
@@ -29,13 +29,13 @@ curl -fsS "https://skyvern.example.com/api/v1/workflows" \
 
 ## REST API
 
-Base URL: `https://skyvern.example.com/api/v1` (the same routes also exist under `/v1`).
+Base URL: `https://skyvern.example.com/api/v1`.
 
 This is the same contract as upstream self-hosted Docker. SDK clients should set the base URL to that origin and send `x-api-key`.
 
 ## MCP (remote HTTP)
 
-Point the client at `https://skyvern.example.com/mcp/` and send the API key. Do not use the Cloud URL or a browser sign-in flow.
+Point the client at `https://skyvern.example.com/api/mcp/` and send the API key. Do not use the Cloud URL or a browser sign-in flow.
 
 Cursor (`~/.cursor/mcp.json`):
 
@@ -44,7 +44,7 @@ Cursor (`~/.cursor/mcp.json`):
   "mcpServers": {
     "Skyvern": {
       "type": "streamable-http",
-      "url": "https://skyvern.example.com/mcp/",
+      "url": "https://skyvern.example.com/api/mcp/",
       "headers": {
         "x-api-key": "YOUR_SKYVERN_API_KEY"
       }
@@ -56,7 +56,7 @@ Cursor (`~/.cursor/mcp.json`):
 Claude Code:
 
 ```bash
-claude mcp add-json skyvern '{"type":"http","url":"https://skyvern.example.com/mcp/","headers":{"x-api-key":"YOUR_SKYVERN_API_KEY"}}' --scope user
+claude mcp add-json skyvern '{"type":"http","url":"https://skyvern.example.com/api/mcp/","headers":{"x-api-key":"YOUR_SKYVERN_API_KEY"}}' --scope user
 ```
 
 Upstream reference: [integrations/mcp/README.md](https://github.com/Skyvern-AI/skyvern/blob/main/integrations/mcp/README.md).
@@ -72,7 +72,7 @@ Install Skyvern's server extra on the machine that runs the assistant, and point
       "command": "python",
       "args": ["-m", "skyvern", "run", "mcp"],
       "env": {
-        "SKYVERN_BASE_URL": "https://skyvern.example.com",
+        "SKYVERN_BASE_URL": "https://skyvern.example.com/api",
         "SKYVERN_API_KEY": "YOUR_SKYVERN_API_KEY"
       }
     }
@@ -95,6 +95,6 @@ Add the [Skyvern piece](https://www.activepieces.com/pieces/skyvern). Set the co
 
 ## If a client is sent to the Cloudron login page
 
-Machine calls must send `x-api-key` and must use `/api`, `/v1`, `/mcp`, or `/artifacts`. Those prefixes are excluded from proxyauth with `!regexp:^/(api|v1|mcp|artifacts)(/|$)`.
+Machine calls must send `x-api-key` and must use a URL under `/api` (`/api/v1` for REST, `/api/mcp/` for remote MCP). That prefix is the proxyauth exclusion. `/artifacts` is for the signed-in dashboard.
 
 If something still hits the login wall, create a [Cloudron app access token](https://docs.cloudron.io/apps/#api-tokens) for the browser UI, or call Skyvern from another app on the same server using the public app URL and the API key. Do not put the API key in a public repository.
