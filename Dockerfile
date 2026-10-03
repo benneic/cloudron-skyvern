@@ -3,12 +3,12 @@
 # Image tags on ECR include the leading "v" (v1.0.36). The ARG is semver without it
 # so it stays aligned with CloudronManifest.json.
 
-ARG SKYVERN_VERSION=1.0.36
+ARG SKYVERN_VERSION=1.0.55
 FROM public.ecr.aws/skyvern/skyvern:v${SKYVERN_VERSION} AS backend
 FROM public.ecr.aws/skyvern/skyvern-ui:v${SKYVERN_VERSION} AS ui
 
 FROM cloudron/base:5.0.0@sha256:04fd70dbd8ad6149c19de39e35718e024417c3e01dc9c6637eaf4a41ec4e596c
-ARG SKYVERN_VERSION=1.0.36
+ARG SKYVERN_VERSION=1.0.55
 
 LABEL org.opencontainers.image.title="Skyvern (Cloudron)"
 LABEL org.opencontainers.image.version="${SKYVERN_VERSION}"

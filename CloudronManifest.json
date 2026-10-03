@@ -3,8 +3,8 @@
   "title": "Skyvern",
   "author": "Skyvern AI <info@skyvern.com>",
   "tagline": "Open source browser automation agent, packaged for Cloudron",
-  "version": "1.0.36",
-  "upstreamVersion": "1.0.36",
+  "version": "1.0.55",
+  "upstreamVersion": "1.0.55",
   "description": "file://DESCRIPTION.md",
   "changelog": "file://CHANGELOG",
   "postInstallMessage": "file://POSTINSTALL.md",
@@ -16,7 +16,10 @@
   "configurePath": "/",
   "packagerName": "Skyvern (Cloudron package) by @benneic",
   "packagerUrl": "https://github.com/benneic/cloudron-skyvern",
-  "tags": ["project", "hosting"],
+  "tags": [
+    "project",
+    "hosting"
+  ],
   "mediaLinks": [
     "https://github.com/Skyvern-AI.png"
   ],
