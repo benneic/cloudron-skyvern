@@ -13,6 +13,7 @@ mkdir -p \
     /app/data/log \
     /app/data/.skyvern \
     /app/data/.skyvern/credential_vault \
+    /app/data/downloads \
     /app/data/temp \
     /app/data/bitwarden \
     /run/nginx/client_body \
@@ -47,6 +48,8 @@ export SKYVERN_CREDENTIALS_FILE=/app/data/.skyvern/credentials.toml
 # The built-in vault encrypts passwords on disk. The default is ~/.skyvern,
 # which is read-only here. The Fernet key is created inside this directory.
 export LOCAL_CREDENTIAL_VAULT_PATH=/app/data/.skyvern/credential_vault
+# Browser sessions mkdir this path when a credential asks to save a login.
+export DOWNLOAD_PATH=/app/data/downloads
 # The UI process mints browser sessions against this URL. The public origin
 # is for the browser; the UI server itself must stay on the loopback API.
 export SKYVERN_API_BASE_URL="${SKYVERN_API_BASE_URL:-http://127.0.0.1:8000/api/v1}"

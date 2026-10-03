@@ -5,6 +5,7 @@
 * Keep `/api/mcp/` on the MCP server path. A trailing slash was redirected to the container's loopback address.
 * Present Skyvern's local diagnostics routes as loopback. The dashboard key check was failing because the request came from the Cloudron proxy.
 * Store the built-in credential vault on `/app/data`. Saving a password failed because the vault tried to create `/root/.skyvern` on the read-only filesystem.
+* Store browser downloads on `/app/data`. Saving a login session failed because Skyvern tried to create `/opt/skyvern/downloads`.
 
 [1.0.36]
 * Initial Cloudron package for Skyvern 1.0.36: PostgreSQL, local storage, proxyauth, nginx routes for the UI, API, MCP, and artifacts.
