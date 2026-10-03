@@ -1,0 +1,7 @@
+node_modules/
+.cloudron/
+.agents/
+skills-lock.json
+*.log
+.env
+.env.*

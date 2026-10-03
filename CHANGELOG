@@ -1,0 +1,2 @@
+[1.0.36]
+* Initial Cloudron package for Skyvern 1.0.36: PostgreSQL, local storage, proxyauth, nginx routes for the UI, API, MCP, and artifacts.

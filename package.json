@@ -1,0 +1,9 @@
+{
+  "name": "skyvern-cloudron",
+  "private": true,
+  "type": "module",
+  "description": "Cloudron packaging for Skyvern. The app runs in Cloudron, not from npm.",
+  "devDependencies": {
+    "@cloudron/manifest-format": "^6.1.0"
+  }
+}
